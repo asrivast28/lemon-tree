@@ -13,6 +13,8 @@ import java.util.*;
 import cern.colt.matrix.impl.*;
 import cytoscape.data.annotation.OntologyTerm;
 
+import lemontree.utils.CppRandom;
+
 /**
  * Class to store name, description and ID number for a gene. The ID number
  * refers to the row index in the data matrix.
@@ -304,7 +306,7 @@ public class Gene {
 		for (int m : condSet) {
 			if (Double.isNaN(data[this.number][m])){
 				// add to plus or min with equal prob
-				double x =  Math.random();
+				double x =  CppRandom.nextDouble();
 				if (x <= 0.5)
 					minList.add(m);
 				else

@@ -14,6 +14,8 @@ import java.util.*;
 import cern.colt.matrix.*;
 import cern.colt.matrix.impl.*;
 
+import lemontree.utils.CppRandom;
+
 public class GibbsSampler {
 
 	public double FACTOR_0 = 1;
@@ -162,7 +164,7 @@ public class GibbsSampler {
 		double loglike = 0;
 		loglike = this.loglikelihoodsum();
 		for (int k = 0; k < row; k++) {
-			int k1 = (int) (row * Math.random());
+			int k1 = CppRandom.nextInteger(0, row - 1);
 			this.operation(k1);
 		}
 		loglike = loglikelihoodsum();
@@ -247,7 +249,7 @@ public class GibbsSampler {
 		double loglike;
 		loglike = this.loglikelihoodsum();
 		for (int k = 0; k < row; k++) {
-			int k1 = (int) (row * Math.random());
+			int k1 = CppRandom.nextInteger(0, row - 1);
 			this.operationFixedclusters(k1);
 		}
 		loglike = this.loglikelihoodsum();
@@ -631,7 +633,7 @@ public class GibbsSampler {
 			ClusterSet.get(i).RowSet = new HashSet<Integer>();
 		}
 		for (int i = 0; i < row; i++) {
-			int j = (int) Math.floor(Math.random() * num_cluster);
+			int j = CppRandom.nextInteger(0, num_cluster - 1);
 			ClusterSet.get(j).RowSet.add(i);
 		}
 		for (int i = 0; i < num_cluster; i++) {
@@ -653,7 +655,7 @@ public class GibbsSampler {
 			ClusterSet.get(i).RowSet = new HashSet<Integer>();
 		}
 		for (int i = 0; i < row; i++) {
-			int j = (int) Math.floor(Math.random() * num_cluster);
+      int j = CppRandom.nextInteger(0, num_cluster - 1);
 			ClusterSet.get(j).RowSet.add(i);
 		}
 		for (int i = 0; i < num_cluster; i++) {
@@ -702,7 +704,7 @@ public class GibbsSampler {
 	 */
 	public int compare(DoubleMatrix1D ratio) {
 		int result = 0;
-		double compare = Math.random();
+		double compare = CppRandom.nextDouble();
 		double partialsum = 0;
 		for (int j = 0; j < ratio.size(); j++) {
 			partialsum = partialsum + ratio.get(j);

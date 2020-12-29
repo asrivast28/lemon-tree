@@ -22,6 +22,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
 import lemontree.modulenetwork.Globals; //revamp
+import lemontree.utils.CppRandom;
 
 
 /**
@@ -43,6 +44,7 @@ public class RunCli {
 	public static void main(String[] args) {
 		
 		// set dummy values for those parameters, they'll be filled later
+    int seed = 0;
 		String task = null;
 		String gene_file = null;
 		String data_file = null;
@@ -88,6 +90,7 @@ public class RunCli {
 
 		// create the different options
 		Options opts = new Options();
+    opts.addOption("seed", true, "seed for PRNG");
 		opts.addOption("task", true, "task to perform");
 		opts.addOption("gene_file", true, "gene file");
 		opts.addOption("data_file", true, "data file (genes)");
@@ -149,6 +152,9 @@ public class RunCli {
 			if (cmd.hasOption("min_clust_score"))
 				min_clust_score = Integer.parseInt(cmd.getOptionValue("min_clust_score"));
 			
+      if (cmd.hasOption("seed"))
+        seed = Integer.parseInt(cmd.getOptionValue("seed"));
+
 			if (cmd.hasOption("task"))
 				task = cmd.getOptionValue("task");
 			
@@ -264,6 +270,9 @@ public class RunCli {
 		
 		// print header
 		printBanner();
+
+    // Set seed
+    CppRandom.setSeed(seed);
 		
 		// something has to be done, we need a task to be set
 		if (task == null)

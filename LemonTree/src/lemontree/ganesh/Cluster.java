@@ -11,6 +11,8 @@ package lemontree.ganesh;
 
 import java.util.*;
 
+import lemontree.utils.CppRandom;
+
 public class Cluster {
 	
 	public int number; 
@@ -50,7 +52,7 @@ public class Cluster {
 			Columns.add(col);
 		}
 		for(int i=0;i<column;i++){
-			int j = (int) Math.floor(Math.random()*num_cluster);
+			int j = CppRandom.nextInteger(0, num_cluster - 1);
 			Columns.get(j).ColumnSet.add(i);
 			}	
 	}

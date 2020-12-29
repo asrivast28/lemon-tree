@@ -908,8 +908,7 @@ public class TreeNode implements Comparable {
         	
             for (int k=0; k<numRegAssign; k++){
             	// roll the dice and choose a split according to SplitProbs
-            	Random random = new Random();
-            	double rand = random.nextDouble();
+            	double rand = CppRandom.nextDouble();
             	int splitind = 0;
             	double partialsum = regulatorSplitProbs.get(0);
             	while (rand > partialsum){
@@ -920,7 +919,7 @@ public class TreeNode implements Comparable {
             	this.regulationSplit = regulatorSplits.get(splitind);
             	this.testSplits.add(regulatorSplits.get(splitind));
             	// also pick a completely random one
-            	int ri = random.nextInt(regulatorSplits.size());
+              int ri = CppRandom.nextInteger(0, regulatorSplits.size() - 1);
             	this.testSplitsRandom.add(regulatorSplits.get(ri));
             }
         }
