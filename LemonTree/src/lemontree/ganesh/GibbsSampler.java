@@ -636,9 +636,18 @@ public class GibbsSampler {
 			int j = CppRandom.nextInteger(0, num_cluster - 1);
 			ClusterSet.get(j).RowSet.add(i);
 		}
+    HashSet<Cluster> empty = new HashSet<Cluster>();
 		for (int i = 0; i < num_cluster; i++) {
-			ClusterSet.get(i).RandomColumnAssign(column);
+      if (ClusterSet.get(i).RowSet.size() > 0) {
+        ClusterSet.get(i).RandomColumnAssign(column);
+      }
+      else {
+        empty.add(ClusterSet.get(i));
+      }
 		}
+    // Remove empty clusters
+    this.ClusterSet.removeAll(empty);
+    this.num_cluster -= empty.size();
 	}
 
 	/**
