@@ -451,6 +451,7 @@ public class Module {
 		for (ArrayList<Integer> list : clusters){
 			TreeNode node = new TreeNode(this, this.hierarchicalTree.leafDistribution.normalGammaPrior);
 			node.leafDistribution.condSet = list;
+			Collections.sort(node.leafDistribution.condSet);
 			node.statistics();
 			node.leafDistribution.bayesianScore();
 			treeList.add(node);
@@ -737,6 +738,7 @@ public class Module {
 			// union of condition sets
 			tree.leafDistribution.condSet = SetOperation.union(tree.leftChild.leafDistribution.condSet, 
 					tree.rightChild.leafDistribution.condSet);
+      Collections.sort(tree.leafDistribution.condSet);
 			// compute score
 			tree.leafDistribution.bayesianScore();
 			tree.setMergeScore(useBHCscore);
