@@ -1478,7 +1478,7 @@ public class TreeNode implements Comparable {
 			}
 			this.leftChild.toXML(sbn);
 			this.rightChild.toXML(sbn);
-			sbn.append("</TreeNode>");
+			sbn.append("</TreeNode>"+newline);
 		}
 	}
 	

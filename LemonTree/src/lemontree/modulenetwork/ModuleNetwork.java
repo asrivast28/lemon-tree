@@ -2140,7 +2140,7 @@ public class ModuleNetwork {
 						out.println("<Root>");
 						StringBuffer sb2 = new StringBuffer();
 						node.toXML(sb2);
-						out.println(sb2.toString());
+						out.print(sb2.toString());
 						out.println("</Root>");
 					}
 				}
