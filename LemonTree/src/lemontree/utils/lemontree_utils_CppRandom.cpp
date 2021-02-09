@@ -8,6 +8,7 @@
  */
 #include "lemontree_utils_CppRandom.h"
 
+#include <iostream>
 #include <random>
 
 
@@ -47,4 +48,14 @@ JNICALL Java_lemontree_utils_CppRandom_nextDouble(
 )
 {
   return distribution(generator);
+}
+
+JNIEXPORT
+void
+JNICALL Java_lemontree_utils_CppRandom_printState(
+  JNIEnv *,
+  jclass
+)
+{
+  std::cout << generator << std::endl;
 }
