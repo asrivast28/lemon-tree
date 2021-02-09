@@ -171,7 +171,7 @@ public class GibbsSampler {
 		// merge clusters
     int j = 0;
     int total = ClusterSet.size();
-		for (int m = 0; m < total; m++) {
+		for (int m = 0; (m < total) && (ClusterSet.size() > 1); m++) {
 			for (int k = 0; k < ClusterSet.size(); k++) {
 				ClusterSet.get(k).number = k;
 			}
