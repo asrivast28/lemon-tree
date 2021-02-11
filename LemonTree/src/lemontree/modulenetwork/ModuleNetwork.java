@@ -1852,7 +1852,7 @@ public class ModuleNetwork {
 				if (!mod.genes.isEmpty()) {
 					mod.hierarchicalTrees = new ArrayList<TreeNode>();
 					System.out.println("sampling module " + mod.number + " timestamp: " + new java.util.Date().toString());
-					HashSet<ArrayList<ArrayList<Integer>>> clusterList = mod.gibbsSamplerClustering(numRuns, numSteps, burnIn, sampleStep);
+					ArrayList<ArrayList<ArrayList<Integer>>> clusterList = mod.gibbsSamplerClustering(numRuns, numSteps, burnIn, sampleStep);
 					for (ArrayList<ArrayList<Integer>> cluster : clusterList) {
 						mod.hierarchicalTree = mod.hierarchicalClusteringOrdered(mod.partition2TreeNode(cluster), useBHCscore);
 						mod.hierarchicalTree.testScore(scoregain);

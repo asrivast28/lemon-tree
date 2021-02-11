@@ -368,7 +368,7 @@ public class Module {
     		double scoregain, boolean useBHCscore){
 		System.out.println("Gibbs sampling experiment partitions ...");
 		this.hierarchicalTrees = new ArrayList<TreeNode>();
-		HashSet<ArrayList<ArrayList<Integer>>> clusterList 
+		ArrayList<ArrayList<ArrayList<Integer>>> clusterList
 			= this.gibbsSamplerClustering(numRuns, numSteps, burnIn, sampleStep);
 		for (ArrayList<ArrayList<Integer>> cluster : clusterList){
 			this.hierarchicalTree = this.hierarchicalClusteringOrdered(this.partition2TreeNode(cluster), useBHCscore);
@@ -393,11 +393,11 @@ public class Module {
      * 
      * @author anjos, tomic
 	 */
-	public HashSet<ArrayList<ArrayList<Integer>>> gibbsSamplerClustering
+	public ArrayList<ArrayList<ArrayList<Integer>>> gibbsSamplerClustering
 		(int numRuns, int numSteps, int burnIn, int sampleStep) {
 
 		// set to store different experiment clusterings
-		HashSet<ArrayList<ArrayList<Integer>>> expClustering = new HashSet<ArrayList<ArrayList<Integer>>>();
+		ArrayList<ArrayList<ArrayList<Integer>>> expClustering = new ArrayList<ArrayList<ArrayList<Integer>>>();
 
 		// get the data submatrix for this module
 		DoubleMatrix2D data = new DenseDoubleMatrix2D(this.moduleNetwork.data);
