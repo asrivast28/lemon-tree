@@ -28,6 +28,8 @@ import cern.colt.list.DoubleArrayList;
 public class Network {
 
 
+  public ArrayList<String> allNodes; // list of all nodes
+
 	public ArrayList<String> nodes; // map from integers to nodes
 	
 	public HashMap<String,Integer> nodeidx; // map from nodes to integers
@@ -40,19 +42,22 @@ public class Network {
 
 	
 	public Network(){
+    this.allNodes = new ArrayList<String>();
 		this.edges = new ArrayList<Edge>();
 		this.setProperties();
 	}
 	
-	public Network(boolean issym){
+	public Network(boolean issym, ArrayList<String> allNodes){
 		this.edges = new ArrayList<Edge>();
-		this.setProperties();
+    this.allNodes = allNodes;
 		this.issym = issym;
+		this.setProperties();
 	}
 	
-	public Network(ArrayList<Edge> edges, boolean issym){
+	public Network(ArrayList<Edge> edges, boolean issym, ArrayList<String> allNodes){
 		this.edges = edges;
 		this.issym = issym;
+    this.allNodes = allNodes;
 		this.setProperties();	
 	}
 	
@@ -161,6 +166,11 @@ public class Network {
 			nds.add(e.to);
 		}
 		this.nodes = new ArrayList<String>();
+    for (String node : this.allNodes) {
+      if (nds.contains(node)) {
+        this.nodes.add(node);
+      }
+    }
 		for (String node : nds)
 			this.nodes.add(node);
 		// set inverse map

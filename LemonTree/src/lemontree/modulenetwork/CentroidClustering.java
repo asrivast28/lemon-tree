@@ -103,13 +103,17 @@ public class CentroidClustering {
 	 */
 	public void setCoClusteringNetwork(double minWeight){
 		System.out.print("Init CoClustering...");
-		this.coClustNetwork = new Network(true);
+    ArrayList<Gene> genes = this.moduleNetwork.geneSet;
+    ArrayList<String> geneNames = new ArrayList<String>(genes.size());
+    for (Gene g : genes) {
+      geneNames.add(g.name);
+    }
+		this.coClustNetwork = new Network(true, geneNames);
 		if (this.moduleNetwork.moduleSets.isEmpty())
 			this.moduleNetwork.moduleSets.add(this.moduleNetwork.moduleSet);
 		double numSets = this.moduleNetwork.moduleSets.size();
 
 		this.moduleNetwork.setInModules();
-		ArrayList<Gene> genes = this.moduleNetwork.geneSet;
 		// loop over gene pairs
 		for (int k=0; k<genes.size()-1; k++)
 			for (int l=k+1; l<genes.size(); l++){

@@ -91,7 +91,7 @@ public class PFClustering {
 		ArrayList<Edge> edges = new ArrayList<Edge>(this.network.edges.size());
 		for (Edge e : this.network.edges)
 			edges.add(e);
-		Network remainingNet = new Network(edges,this.network.issym); 
+		Network remainingNet = new Network(edges,this.network.issym, this.network.allNodes);
 		// clustering loop
 		while (!remainingNet.edges.isEmpty()){
 			// reset v,w
