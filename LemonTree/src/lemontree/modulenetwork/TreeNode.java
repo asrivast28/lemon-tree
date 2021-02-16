@@ -875,9 +875,12 @@ public class TreeNode implements Comparable {
      */
     public void findRegulatorBayesStoch(int numRegAssign, ArrayList<Gene> regulators, double beta){
         if (this.nodeStatus.equals("internal")){
+          ArrayList<Split> regulatorSplits = this.computeRegulatorSplitsBayes(regulators, beta);
+          if (regulatorSplits.isEmpty()) {
+            return;
+          }
         	this.testSplits = new ArrayList<Split>(numRegAssign);
         	this.testSplitsRandom = new ArrayList<Split>(numRegAssign);
-        	ArrayList<Split> regulatorSplits = this.computeRegulatorSplitsBayes(regulators, beta);
         	ArrayList<Double> regulatorSplitProbs = new ArrayList<Double>(regulatorSplits.size());
           double maxRegulatorScore = Double.NEGATIVE_INFINITY;
           for (Split splt : regulatorSplits){
@@ -929,6 +932,9 @@ public class TreeNode implements Comparable {
     	if (this.nodeStatus.equals("internal")){
     		System.out.println("Computing all regulator - split value scores ...");
     		ArrayList<Split> regulatorSplits = this.computeRegulatorSplitsBayes(regulators, beta);
+        if (regulatorSplits.isEmpty()) {
+          return;
+        }
     		System.out.println("... done");
         	// Create "average" regulator
         	Gene avgReg = new Gene(regulatorSplits, this.module.moduleNetwork.data);
@@ -993,9 +999,8 @@ public class TreeNode implements Comparable {
             		regulatorSplits.add(splt);
     			}
     		}
-    		if (regulatorSplits.isEmpty()){ // this is unusual but seems to happen sometimes ... add dummy to prevent null pointers
+    		if (regulatorSplits.isEmpty()){ // this is unusual but seems to happen sometimes
     			this.toLeaf();
-    			regulatorSplits.add(new Split());
     		}
     	}
     	return regulatorSplits;
