@@ -298,10 +298,6 @@ public class GibbsSampler {
 		for (int j = 0; j < ratio.size(); j++) {
 			ratio.set(j, Math.exp(ratio.get(j) - max_ratio));
 		}
-		double sum = ratio.zSum();
-		for (int j = 0; j < ratio.size(); j++) {
-			ratio.set(j, ratio.get(j) / sum);
-		}
 		AllRows.get(row).ratio = new DenseDoubleMatrix1D(num_cluster + 1);
 		AllRows.get(row).ratio = ratio;
 		// outcome is the no. of cluster to which the gene belongs
@@ -385,10 +381,6 @@ public class GibbsSampler {
 		for (int j = 0; j < ratio.size(); j++) {
 			ratio.set(j, Math.exp(ratio.get(j) - max_ratio));
 		}
-		double sum = ratio.zSum();
-		for (int j = 0; j < ratio.size(); j++) {
-			ratio.set(j, ratio.get(j) / sum);
-		}
 		AllRows.get(row).ratio = new DenseDoubleMatrix1D(num_cluster + 1);
 		AllRows.get(row).ratio = ratio;
 		// outcome is the no. of cluster to which the gene belongs
@@ -457,10 +449,6 @@ public class GibbsSampler {
 			//int nsize = ClusterSet.get(i).RowSet.size();
 			ratio.set(i, Math.exp(bayesRatioFixedCluster(row, i)));
 		}
-		double sum = ratio.zSum();
-		for (int j = 0; j < ratio.size(); j++) {
-			ratio.set(j, ratio.get(j) / sum);
-		}
 		int outcome = compare(ratio);
 		int new_cluster = outcome;
 		ClusterSet.get(new_cluster).RowSet.add(row);
@@ -483,10 +471,6 @@ public class GibbsSampler {
 			if (clust1.number != clust.number)
 				ratio.set(i, Math.exp(scoreDiff(clust, clust1)));
 			i++;
-		}
-		double sum = ratio.zSum();
-		for (int j = 0; j < ratio.size(); j++) {
-			ratio.set(j, ratio.get(j) / sum);
 		}
 		// outcome is the no. of cluster to which give cluster merges
 		int outcome = compare(ratio);
@@ -708,21 +692,31 @@ public class GibbsSampler {
 	 * Gibbs sampler to determine to which cluster the row joins given an array
 	 * of probabilities to join each cluster
 	 * 
-	 * @param ratio array of probability to join the cluster
+	 * @param ratio array of weights to join the cluster
 	 * @return the cluster chosen to join
 	 */
 	public int compare(DoubleMatrix1D ratio) {
 		int result = 0;
-		double compare = CppRandom.nextDouble();
-		double partialsum = 0;
-		for (int j = 0; j < ratio.size(); j++) {
-			partialsum = partialsum + ratio.get(j);
-			if (partialsum > compare) {
-				result = j;
-				break;
-			}
+    double sum = ratio.zSum();
+    for (int j = 0; j < ratio.size(); j++, result++) {
+      if (Double.isInfinite(ratio.get(j))) {
+        break;
+      }
+      ratio.set(j, ratio.get(j) / sum);
+    }
+    if (result == ratio.size()) {
+      result = 0;
+      double compare = CppRandom.nextDouble();
+      double partialsum = 0;
+      for (int j = 0; j < ratio.size(); j++) {
+        partialsum = partialsum + ratio.get(j);
+        if (partialsum > compare) {
+          result = j;
+          break;
+        }
 
-		}
+      }
+    }
 		return (result);
 	}
 
