@@ -169,6 +169,7 @@ public class Network {
     for (String node : this.allNodes) {
       if (nds.contains(node)) {
         this.nodes.add(node);
+        nds.remove(node);
       }
     }
 		for (String node : nds)
