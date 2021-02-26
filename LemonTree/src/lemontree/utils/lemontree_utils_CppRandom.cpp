@@ -12,7 +12,7 @@
 #include <random>
 
 
-static std::mt19937 generator;
+static std::mt19937_64 generator;
 static std::uniform_real_distribution<jdouble> distribution(0.0, 1.0);
 
 
