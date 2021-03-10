@@ -52,6 +52,17 @@ JNICALL Java_lemontree_utils_CppRandom_nextDouble(
 
 JNIEXPORT
 void
+JNICALL Java_lemontree_utils_CppRandom_advanceState(
+  JNIEnv *,
+  jclass,
+  jint count
+)
+{
+  generator.discard(count);
+}
+
+JNIEXPORT
+void
 JNICALL Java_lemontree_utils_CppRandom_printState(
   JNIEnv *,
   jclass

@@ -171,7 +171,8 @@ public class GibbsSampler {
 		// merge clusters
     int j = 0;
     int total = ClusterSet.size();
-		for (int m = 0; (m < total) && (ClusterSet.size() > 1); m++) {
+    int m = -1;
+		for (m = 0; (m < total) && (ClusterSet.size() > 1); m++) {
 			for (int k = 0; k < ClusterSet.size(); k++) {
 				ClusterSet.get(k).number = k;
 			}
@@ -181,6 +182,9 @@ public class GibbsSampler {
         j++;
       }
 		}
+    if (!flag) {
+      CppRandom.advanceState(row - m);
+    }
 		loglike = loglikelihoodsum();
 		return (loglike);
 	}
@@ -714,8 +718,10 @@ public class GibbsSampler {
           result = j;
           break;
         }
-
       }
+    }
+    else {
+      CppRandom.advanceState(1);
     }
 		return (result);
 	}

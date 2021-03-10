@@ -13,6 +13,8 @@ public class CppRandom {
 
   public static native double nextDouble();
 
+  public static native void advanceState(int count);
+
   public static native void printState();
 
   public static void main(String[] args) {
