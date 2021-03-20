@@ -14,7 +14,7 @@ header: CppRandom.java
 
 source: lemontree_utils_CppRandom.h lemontree_utils_CppRandom.cpp
 	g++ -c -fPIC -I${JAVA_HOME}/include -I ${JAVA_HOME}/include/linux lemontree_utils_CppRandom.cpp -o lemontree_utils_CppRandom.o
-	g++ -shared -fPIC -o libCppRandom.so lemontree_utils_CppRandom.o -lc
+	g++ -shared -fPIC -o libCppRandom.so lemontree_utils_CppRandom.o -lc -ltrng4
 
 .PHONY: clean
 clean:

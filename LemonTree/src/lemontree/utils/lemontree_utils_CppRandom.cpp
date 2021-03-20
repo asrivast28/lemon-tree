@@ -8,11 +8,13 @@
  */
 #include "lemontree_utils_CppRandom.h"
 
+#include <trng/mrg3s.hpp>
+
 #include <iostream>
 #include <random>
 
 
-static std::mt19937_64 generator;
+static trng::mrg3s generator;
 static std::uniform_real_distribution<jdouble> distribution(0.0, 1.0);
 
 
@@ -24,7 +26,7 @@ JNICALL Java_lemontree_utils_CppRandom_setSeed(
   jint seed
 )
 {
-  generator.seed(seed);
+  generator.seed(static_cast<uint64_t>(seed));
 }
 
 JNIEXPORT
