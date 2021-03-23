@@ -52,7 +52,7 @@ public class Cluster {
 			Columns.add(col);
 		}
 		for(int i=0;i<column;i++){
-			int j = CppRandom.nextInteger(0, num_cluster - 1);
+			int j = CppRandom.nextInteger(0, num_cluster);
 			Columns.get(j).ColumnSet.add(i);
 			}	
 	}

@@ -164,7 +164,7 @@ public class GibbsSampler {
 		double loglike = 0;
 		loglike = this.loglikelihoodsum();
 		for (int k = 0; k < row; k++) {
-			int k1 = CppRandom.nextInteger(0, row - 1);
+			int k1 = CppRandom.nextInteger(0, row);
 			this.operation(k1);
 		}
 		loglike = loglikelihoodsum();
@@ -253,7 +253,7 @@ public class GibbsSampler {
 		double loglike;
 		loglike = this.loglikelihoodsum();
 		for (int k = 0; k < row; k++) {
-			int k1 = CppRandom.nextInteger(0, row - 1);
+			int k1 = CppRandom.nextInteger(0, row);
 			this.operationFixedclusters(k1);
 		}
 		loglike = this.loglikelihoodsum();
@@ -621,7 +621,7 @@ public class GibbsSampler {
 			ClusterSet.get(i).RowSet = new HashSet<Integer>();
 		}
 		for (int i = 0; i < row; i++) {
-			int j = CppRandom.nextInteger(0, num_cluster - 1);
+			int j = CppRandom.nextInteger(0, num_cluster);
 			ClusterSet.get(j).RowSet.add(i);
 		}
     HashSet<Cluster> empty = new HashSet<Cluster>();
@@ -652,7 +652,7 @@ public class GibbsSampler {
 			ClusterSet.get(i).RowSet = new HashSet<Integer>();
 		}
 		for (int i = 0; i < row; i++) {
-      int j = CppRandom.nextInteger(0, num_cluster - 1);
+      int j = CppRandom.nextInteger(0, num_cluster);
 			ClusterSet.get(j).RowSet.add(i);
 		}
 		for (int i = 0; i < num_cluster; i++) {

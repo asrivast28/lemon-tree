@@ -9,13 +9,14 @@
 #include "lemontree_utils_CppRandom.h"
 
 #include <trng/mrg3s.hpp>
+#include <trng/uniform01_dist.hpp>
+#include <trng/uniform_int_dist.hpp>
 
 #include <iostream>
-#include <random>
 
 
 static trng::mrg3s generator;
-static std::uniform_real_distribution<jdouble> distribution(0.0, 1.0);
+static trng::uniform01_dist<jdouble> distribution;
 
 
 JNIEXPORT
@@ -38,8 +39,8 @@ JNICALL Java_lemontree_utils_CppRandom_nextInteger(
   jint upper
 )
 {
-  std::uniform_int_distribution<jint> dist(lower, upper);
-  return dist(generator);
+  trng::uniform_int_dist dist(lower, upper);
+  return static_cast<jint>(dist(generator));
 }
 
 JNIEXPORT
@@ -60,7 +61,7 @@ JNICALL Java_lemontree_utils_CppRandom_advanceState(
   jint count
 )
 {
-  generator.discard(count);
+  generator.jump(count);
 }
 
 JNIEXPORT

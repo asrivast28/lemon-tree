@@ -919,7 +919,7 @@ public class TreeNode implements Comparable {
             	this.regulationSplit = regulatorSplits.get(splitind);
             	this.testSplits.add(regulatorSplits.get(splitind));
             	// also pick a completely random one
-              int ri = CppRandom.nextInteger(0, regulatorSplits.size() - 1);
+              int ri = CppRandom.nextInteger(0, regulatorSplits.size());
             	this.testSplitsRandom.add(regulatorSplits.get(ri));
             }
         }
@@ -1092,7 +1092,7 @@ public class TreeNode implements Comparable {
             	this.regulationSplit = regulatorSplits.get(splitind);
             	this.testSplits.add(regulatorSplits.get(splitind));
             	// also pick a completely random one
-            	int ri = random.nextInt(regulatorSplits.size());
+            	int ri = CppRandom.nextInteger(0, regulatorSplits.size());
             	this.testSplitsRandom.add(regulatorSplits.get(ri));
             }
         }
